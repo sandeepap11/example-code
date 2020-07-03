@@ -1,8 +1,14 @@
 import React from "react";
 import GridRow from "./GridRow";
 
-const Grid = ({ matches }) => {
-  const matchesToShow = matches.slice(0, 10);
+const Grid = ({ matches, rowsPerPage, pageNumber }) => {
+  let emptyRows = [];
+
+  if (rowsPerPage > matches.length) {
+    for (let i = 0; i < rowsPerPage - matches.length; i++) {
+      emptyRows.push(i);
+    }
+  }
 
   return (
     <div className="grid-container">
@@ -19,9 +25,17 @@ const Grid = ({ matches }) => {
         <div className="grid-row-attendance">ATTENDANCE</div>
       </div>
       <div className="grid-body">
-        {matchesToShow.map((match, index) => (
-          <GridRow key={match.fifa_id} match={match} gameNumber={index + 1} />
+        {matches.map((match, index) => (
+          <GridRow
+            key={match.fifa_id}
+            match={match}
+            gameNumber={(pageNumber - 1) * 10 + index + 1}
+          />
         ))}
+        {rowsPerPage > matches.length &&
+          emptyRows.map(emptyRow => (
+            <div key={emptyRow} className="grid-row-empty"></div>
+          ))}
       </div>
     </div>
   );
