@@ -31,6 +31,10 @@ const GridMain = () => {
     setPageNumber(pageNumber);
   };
 
+  const totalPages = parseFloat(
+    (matches.length / ROWS_PER_PAGE).toString().split(".")[0]
+  );
+
   return (
     <div className="grid-main">
       <h1>All World Cup Matches 2019</h1>
@@ -47,9 +51,9 @@ const GridMain = () => {
             rowsPerPage={ROWS_PER_PAGE}
             rowsInCurrentPage={matchesToShow.length}
             totalRows={matches.length}
-            totalPages={parseFloat(
-              (matches.length / ROWS_PER_PAGE).toString().split(".")[0]
-            )}
+            totalPages={
+              totalPages % ROWS_PER_PAGE === 0 ? totalPages : totalPages + 1
+            }
           />
         </>
       )}
