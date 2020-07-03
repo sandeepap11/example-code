@@ -20,13 +20,13 @@ const Pagination = ({
   const updatePageNumber = currentPageNumberValue => {
     if (
       isNaN(currentPageNumberValue) ||
-      currentPageNumberValue > totalPages ||
-      currentPageNumberValue < 1
+      Number(currentPageNumberValue) > totalPages ||
+      Number(currentPageNumberValue) < 1
     ) {
       setNewCurrentPageNumber(pageNumber);
     } else {
-      setNewCurrentPageNumber(currentPageNumberValue);
-      getMatchesByPageNumber(currentPageNumberValue);
+      setNewCurrentPageNumber(Number(currentPageNumberValue));
+      getMatchesByPageNumber(Number(currentPageNumberValue));
     }
   };
 
@@ -40,7 +40,7 @@ const Pagination = ({
         />
         <PaginationControl
           icon={faBackward}
-          onClick={() => updatePageNumber(currentPageNumber - 1)}
+          onClick={() => updatePageNumber(pageNumber - 1)}
           isDisabled={pageNumber === 1}
         />
         <div className="pagination-page-input-control">
@@ -65,7 +65,7 @@ const Pagination = ({
         </div>
         <PaginationControl
           icon={faForward}
-          onClick={() => updatePageNumber(currentPageNumber + 1)}
+          onClick={() => updatePageNumber(pageNumber + 1)}
           isDisabled={pageNumber === totalPages}
         />
         <PaginationControl
@@ -92,6 +92,8 @@ const PaginationControl = ({ icon, onClick, isDisabled }) => {
           : "pagination-page-control"
       }
       onClick={() => {
+        console.log("clicketh", isDisabled);
+
         if (!isDisabled) onClick();
       }}
     >
