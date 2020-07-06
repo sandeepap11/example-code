@@ -7,32 +7,33 @@ const ROWS_PER_PAGE = 10;
 
 const GridMain = () => {
   const [matches, setMatches] = useState([]);
-  const [matchesToShow, setMatchesToShow] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
+  const [searchText, setSearchText] = useState("");
   useEffect(() => {
     fetch("https://worldcup.sfg.io/matches")
       .then(response => response.json())
       .then(matches => {
         setMatches(matches);
-        setMatchesToShow(matches.slice(0, ROWS_PER_PAGE));
       });
   }, []);
 
-  const getMatchesByPageNumber = pageNumber => {
-    const totalPages = matches / ROWS_PER_PAGE;
-    if (pageNumber > totalPages || pageNumber < 1) return;
-
-    setMatchesToShow(
-      matches.slice(
-        (pageNumber - 1) * ROWS_PER_PAGE,
-        pageNumber * ROWS_PER_PAGE
-      )
-    );
-    setPageNumber(pageNumber);
-  };
+  let filteredMatches = matches.filter(
+    match =>
+      match.location.includes(searchText) ||
+      match.venue.includes(searchText) ||
+      match.weather.description.includes(searchText) ||
+      match.home_team_country.includes(searchText) ||
+      match.away_team_country.includes(searchText) ||
+      match.attendance.includes(searchText)
+  );
 
   const totalPages = parseFloat(
-    (matches.length / ROWS_PER_PAGE).toString().split(".")[0]
+    (filteredMatches.length / ROWS_PER_PAGE).toString().split(".")[0]
+  );
+
+  const matchesToShow = filteredMatches.slice(
+    (pageNumber - 1) * ROWS_PER_PAGE,
+    pageNumber * ROWS_PER_PAGE
   );
 
   return (
@@ -44,15 +45,19 @@ const GridMain = () => {
             matches={matchesToShow}
             rowsPerPage={ROWS_PER_PAGE}
             pageNumber={pageNumber}
+            updateSearchText={setSearchText}
+            setPageNumber={setPageNumber}
           />
           <Pagination
-            getMatchesByPageNumber={getMatchesByPageNumber}
+            setPageNumber={setPageNumber}
             pageNumber={pageNumber}
             rowsPerPage={ROWS_PER_PAGE}
             rowsInCurrentPage={matchesToShow.length}
-            totalRows={matches.length}
+            totalRows={filteredMatches.length}
             totalPages={
-              totalPages % ROWS_PER_PAGE === 0 ? totalPages : totalPages + 1
+              filteredMatches.length % ROWS_PER_PAGE === 0
+                ? totalPages
+                : totalPages + 1
             }
           />
         </>

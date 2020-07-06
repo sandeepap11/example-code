@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faStepBackward,
@@ -8,7 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const Pagination = ({
-  getMatchesByPageNumber,
+  setPageNumber,
   pageNumber,
   rowsPerPage,
   rowsInCurrentPage,
@@ -16,6 +16,8 @@ const Pagination = ({
   totalPages
 }) => {
   const [currentPageNumber, setNewCurrentPageNumber] = useState(pageNumber);
+
+  useEffect(() => setNewCurrentPageNumber(pageNumber), [pageNumber]);
 
   const updatePageNumber = currentPageNumberValue => {
     if (
@@ -26,7 +28,7 @@ const Pagination = ({
       setNewCurrentPageNumber(pageNumber);
     } else {
       setNewCurrentPageNumber(Number(currentPageNumberValue));
-      getMatchesByPageNumber(Number(currentPageNumberValue));
+      setPageNumber(Number(currentPageNumberValue));
     }
   };
 

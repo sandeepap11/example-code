@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import GridRow from "./GridRow";
 
-const Grid = ({ matches, rowsPerPage, pageNumber }) => {
+const Grid = ({
+  matches,
+  rowsPerPage,
+  pageNumber,
+  updateSearchText,
+  setPageNumber
+}) => {
   let emptyRows = [];
 
   if (rowsPerPage > matches.length) {
@@ -14,6 +20,8 @@ const Grid = ({ matches, rowsPerPage, pageNumber }) => {
 
   const onSearch = text => {
     setSearchText(text);
+    updateSearchText(text);
+    setPageNumber(1);
   };
 
   return (
