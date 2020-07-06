@@ -2,6 +2,7 @@
 
 .grid-main {
   margin: 2vh 2vw;
+  min-width: 85rem;
 }
 
 .grid-main h1 {
@@ -26,7 +27,7 @@
   background-color: #000;
 }
 .grid-search input {
-  margin-left: 1rem;
+  margin: 0.5rem;
   width: 30%;
 }
 
