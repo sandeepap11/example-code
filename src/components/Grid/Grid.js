@@ -1,13 +1,23 @@
 import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faSort,
+  faSortUp,
+  faSortDown
+} from "@fortawesome/free-solid-svg-icons";
 import GridRow from "./GridRow";
 
 const Grid = ({
   matches,
   rowsPerPage,
-  pageNumber,
   updateSearchText,
-  setPageNumber
+  setPageNumber,
+  sortHeader,
+  setSortHeader,
+  setSortDirection
 }) => {
+  const [searchText, setSearchText] = useState("");
+
   let emptyRows = [];
 
   if (rowsPerPage > matches.length) {
@@ -16,11 +26,15 @@ const Grid = ({
     }
   }
 
-  const [searchText, setSearchText] = useState("");
-
   const onSearch = text => {
     setSearchText(text);
     updateSearchText(text);
+    setPageNumber(1);
+  };
+
+  const onSort = (sortHeader, sortDirection) => {
+    setSortHeader(sortHeader);
+    setSortDirection(sortDirection);
     setPageNumber(1);
   };
 
@@ -28,16 +42,96 @@ const Grid = ({
     <div className="grid-container">
       <div>
         <div className="grid-header">
-          <div className="grid-row-gamenumber">NO.</div>
-          <div className="grid-row-datetime">DATE</div>
-          <div className="grid-row-stage">STAGE</div>
-          <div className="grid-row-location">STADIUM</div>
-          <div className="grid-row-venue">CITY</div>
-          <div className="grid-row-weather">WEATHER</div>
-          <div className="grid-row-home">TEAM 1</div>
-          <div className="grid-row-away">TEAM 2</div>
-          <div className="grid-row-score">SCORE</div>
-          <div className="grid-row-attendance">ATTENDANCE</div>
+          <div className="grid-row-gamenumber">
+            NO.
+            <SortHandle
+              parameter={"gameNumber"}
+              {...{
+                sortHeader,
+                onSort
+              }}
+            />
+          </div>
+          <div className="grid-row-datetime">
+            DATE
+            <SortHandle
+              parameter={"dateString"}
+              {...{
+                sortHeader,
+                onSort
+              }}
+            />
+          </div>
+          <div className="grid-row-stage">
+            STAGE
+            <SortHandle
+              parameter={"stage_name"}
+              {...{
+                sortHeader,
+                onSort
+              }}
+            />
+          </div>
+          <div className="grid-row-location">
+            STADIUM
+            <SortHandle
+              parameter={"location"}
+              {...{
+                sortHeader,
+                onSort
+              }}
+            />
+          </div>
+          <div className="grid-row-venue">
+            CITY
+            <SortHandle
+              parameter={"venue"}
+              {...{
+                sortHeader,
+                onSort
+              }}
+            />
+          </div>
+          <div className="grid-row-home">
+            TEAM 1
+            <SortHandle
+              parameter={"home_team_country"}
+              {...{
+                sortHeader,
+                onSort
+              }}
+            />
+          </div>
+          <div className="grid-row-away">
+            TEAM 2
+            <SortHandle
+              parameter={"away_team_country"}
+              {...{
+                sortHeader,
+                onSort
+              }}
+            />
+          </div>
+          <div className="grid-row-score">
+            SCORE
+            <SortHandle
+              parameter={"score"}
+              {...{
+                sortHeader,
+                onSort
+              }}
+            />
+          </div>
+          <div className="grid-row-attendance">
+            ATTENDANCE
+            <SortHandle
+              parameter={"attendance"}
+              {...{
+                sortHeader,
+                onSort
+              }}
+            />
+          </div>
         </div>
         <div className="grid-search">
           <input
@@ -57,6 +151,41 @@ const Grid = ({
             <div key={emptyRow} className="grid-row-empty"></div>
           ))}
       </div>
+    </div>
+  );
+};
+
+const SortHandle = ({ parameter, sortHeader, onSort }) => {
+  const [sortColumnOrder, setSortColumnOrder] = useState("");
+
+  const changeSortOrder = () => {
+    const sortDirection =
+      parameter !== sortHeader
+        ? "ASC"
+        : sortColumnOrder === "ASC"
+        ? "DESC"
+        : sortColumnOrder === "DESC"
+        ? "ASC"
+        : "ASC";
+
+    setSortColumnOrder(sortDirection);
+
+    onSort(parameter, sortDirection);
+  };
+
+  return (
+    <div className="grid-geader-sort" onClick={changeSortOrder}>
+      <FontAwesomeIcon
+        icon={
+          parameter !== sortHeader
+            ? faSort
+            : sortColumnOrder === "ASC"
+            ? faSortUp
+            : sortColumnOrder === "DESC"
+            ? faSortDown
+            : faSort
+        }
+      />
     </div>
   );
 };

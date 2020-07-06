@@ -65,10 +65,10 @@
 }
 
 .grid-row-gamenumber {
-  width: 3%;
+  width: 5%;
 }
 .grid-row-datetime {
-  width: 10%;
+  width: 12%;
 }
 
 .grid-row-stage {
@@ -78,9 +78,6 @@
   flex: 1;
 }
 .grid-row-venue {
-  width: 12%;
-}
-.grid-row-weather {
   width: 11%;
 }
 .grid-row-home {
@@ -90,11 +87,16 @@
   width: 12%;
 }
 .grid-row-score {
-  width: 5%;
+  width: 10%;
 }
 
 .grid-row-attendance {
-  width: 8%;
+  width: 12%;
+}
+
+.grid-geader-sort {
+  padding-left: 0.5rem;
+  font-size: 1.4rem;
 }
 
 /* Pagination Styles */
