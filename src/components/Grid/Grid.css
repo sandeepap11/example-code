@@ -16,9 +16,18 @@
 /* Grid Row Styles */
 
 .grid-header {
-  color: azure;
+  color: #fff;
   background-color: #000;
   font-weight: bold;
+}
+
+.grid-search {
+  color: #fff;
+  background-color: #000;
+}
+.grid-search input {
+  margin-left: 1rem;
+  width: 30%;
 }
 
 .grid-row-empty {
@@ -29,7 +38,8 @@
 }
 
 .grid-header,
-.grid-row-main {
+.grid-row-main,
+.grid-search {
   display: flex;
   width: 100%;
   align-items: center;
