@@ -17,15 +17,45 @@ const GridMain = () => {
       });
   }, []);
 
-  let filteredMatches = matches.filter(
-    match =>
-      match.location.includes(searchText) ||
-      match.venue.includes(searchText) ||
-      match.weather.description.includes(searchText) ||
-      match.home_team_country.includes(searchText) ||
-      match.away_team_country.includes(searchText) ||
-      match.attendance.includes(searchText)
-  );
+  let filteredMatches = matches
+    .map((match, index) => {
+      const matchDate = new Date(match.datetime);
+      const dateValue = matchDate.toDateString().replace("2019", "");
+      const timeString = matchDate.toTimeString();
+      const dateString = `${dateValue.slice(
+        4,
+        dateValue.length
+      )} ${timeString.slice(0, 5)}`;
+
+      const gameNumber = index + 1;
+
+      const stage_name =
+        gameNumber > 36
+          ? match.stage_name === "Match for third place"
+            ? "Third Place"
+            : match.stage_name
+          : "Group Stage";
+
+      return { ...match, gameNumber, dateString, stage_name };
+    })
+    .filter(
+      match =>
+        match.gameNumber.toString().includes(searchText) ||
+        match.dateString.toLowerCase().includes(searchText.toLowerCase()) ||
+        match.stage_name.toLowerCase().includes(searchText.toLowerCase()) ||
+        match.location.toLowerCase().includes(searchText.toLowerCase()) ||
+        match.venue.toLowerCase().includes(searchText.toLowerCase()) ||
+        match.weather.description
+          .toLowerCase()
+          .includes(searchText.toLowerCase()) ||
+        match.home_team_country
+          .toLowerCase()
+          .includes(searchText.toLowerCase()) ||
+        match.away_team_country
+          .toLowerCase()
+          .includes(searchText.toLowerCase()) ||
+        match.attendance.toLowerCase().includes(searchText.toLowerCase())
+    );
 
   const totalPages = parseFloat(
     (filteredMatches.length / ROWS_PER_PAGE).toString().split(".")[0]

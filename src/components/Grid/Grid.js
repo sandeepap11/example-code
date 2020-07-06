@@ -49,12 +49,8 @@ const Grid = ({
         </div>
       </div>
       <div className="grid-body">
-        {matches.map((match, index) => (
-          <GridRow
-            key={match.fifa_id}
-            match={match}
-            gameNumber={(pageNumber - 1) * 10 + index + 1}
-          />
+        {matches.map(match => (
+          <GridRow key={match.fifa_id} match={match} />
         ))}
         {rowsPerPage > matches.length &&
           emptyRows.map(emptyRow => (
