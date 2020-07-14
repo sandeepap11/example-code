@@ -94,8 +94,6 @@ const PaginationControl = ({ icon, onClick, isDisabled }) => {
           : "pagination-page-control"
       }
       onClick={() => {
-        console.log("clicketh", isDisabled);
-
         if (!isDisabled) onClick();
       }}
     >
