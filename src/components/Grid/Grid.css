@@ -22,6 +22,22 @@
   font-weight: bold;
 }
 
+.grid-search {
+  color: #fff;
+  background-color: #000;
+}
+.grid-search input {
+  margin: 0.5rem;
+  width: 30%;
+}
+
+.grid-row-empty {
+  border: 1px solid #000;
+  border-bottom-color: transparent;
+  border-top-color: transparent;
+  height: 3.5rem;
+}
+
 .grid-header,
 .grid-row-main,
 .grid-search {
@@ -81,5 +97,56 @@
 
 .grid-geader-sort {
   padding-left: 0.5rem;
+  font-size: 1.4rem;
+}
+
+/* Pagination Styles */
+
+.pagination-main {
+  display: flex;
+  height: 4rem;
+  padding: 0.5rem;
+  place-items: center;
+  justify-content: space-between;
+  border: 0.1rem solid #000;
+  background-color: #000;
+  color: #fff;
+}
+
+.pagination-control {
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+}
+
+.pagination-page-control,
+.pagination-page-control-disabled {
+  height: 3rem;
+  width: 3rem;
+  background-color: #000;
+  color: #fff;
+  font-size: 2.4rem;
+  display: grid;
+  place-items: center;
+}
+
+.pagination-page-control-disabled {
+  color: #888;
+}
+
+.pagination-page-input-control {
+  display: flex;
+}
+
+.pagination-page-input {
+  font-size: 1.8rem;
+  place-items: center;
+  text-align: center;
+  width: 3rem;
+}
+
+.pagination-info {
+  display: flex;
+  align-items: center;
   font-size: 1.4rem;
 }
