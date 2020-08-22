@@ -46,7 +46,7 @@ const GridMain = () => {
     };
   });
 
-  if (filteredMatches && filteredMatches !== "")
+  if (filteredMatches && searchText && searchText !== "")
     filteredMatches = filteredMatches.filter(
       match =>
         match.gameNumber.toString().includes(searchText) ||
