@@ -7,6 +7,11 @@ import {
   faStepForward
 } from "@fortawesome/free-solid-svg-icons";
 
+const RETURN_KEY_CODE = 13;
+export const onReturnKeyPress = (event, actionMethod) => {
+  if (event.keyCode === RETURN_KEY_CODE) actionMethod();
+};
+
 const Pagination = ({
   setPageNumber,
   pageNumber,
@@ -39,11 +44,13 @@ const Pagination = ({
           icon={faStepBackward}
           onClick={() => updatePageNumber(1)}
           isDisabled={pageNumber === 1}
+          label={"Go to First Page"}
         />
         <PaginationControl
           icon={faBackward}
           onClick={() => updatePageNumber(pageNumber - 1)}
           isDisabled={pageNumber === 1}
+          label={"Go to Previous Page"}
         />
         <div className="pagination-page-input-control">
           <div className="pagination-page-control">
@@ -58,6 +65,7 @@ const Pagination = ({
                 }
               }}
               value={currentPageNumber}
+              aria-label="Go to Page Number"
             />
           </div>
           <div className="pagination-page-control pagination-page-input">
@@ -69,11 +77,13 @@ const Pagination = ({
           icon={faForward}
           onClick={() => updatePageNumber(pageNumber + 1)}
           isDisabled={pageNumber === totalPages}
+          label={"Go to Next Page"}
         />
         <PaginationControl
           icon={faStepForward}
           onClick={() => updatePageNumber(totalPages)}
           isDisabled={pageNumber === totalPages}
+          label={"Go to Last Page"}
         />
       </div>
       <div className="pagination-info">
@@ -85,7 +95,7 @@ const Pagination = ({
   );
 };
 
-const PaginationControl = ({ icon, onClick, isDisabled }) => {
+const PaginationControl = ({ icon, onClick, isDisabled, label }) => {
   return (
     <div
       className={
@@ -94,10 +104,17 @@ const PaginationControl = ({ icon, onClick, isDisabled }) => {
           : "pagination-page-control"
       }
       onClick={() => {
-        console.log("clicketh", isDisabled);
-
         if (!isDisabled) onClick();
       }}
+      onKeyDown={event =>
+        onReturnKeyPress(event, () => {
+          if (!isDisabled) onClick();
+        })
+      }
+      tabIndex={0}
+      role="button"
+      aria-disabled={isDisabled}
+      aria-label={label}
     >
       <FontAwesomeIcon icon={icon} />
     </div>

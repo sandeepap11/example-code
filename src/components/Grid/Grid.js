@@ -6,6 +6,7 @@ import {
   faSortDown
 } from "@fortawesome/free-solid-svg-icons";
 import GridRow from "./GridRow";
+import { onReturnKeyPress } from "./Pagination";
 
 const Grid = ({
   matches,
@@ -174,7 +175,14 @@ const SortHandle = ({ parameter, sortHeader, onSort }) => {
   };
 
   return (
-    <div className="grid-geader-sort" onClick={changeSortOrder}>
+    <div
+      className="grid-geader-sort"
+      onClick={changeSortOrder}
+      onKeyDown={event => onReturnKeyPress(event, changeSortOrder)}
+      tabIndex={0}
+      role="button"
+      aria-label={"sort by " + parameter}
+    >
       <FontAwesomeIcon
         icon={
           parameter !== sortHeader
