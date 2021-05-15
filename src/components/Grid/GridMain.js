@@ -13,8 +13,8 @@ const GridMain = () => {
   const [sortDirection, setSortDirection] = useState("");
   useEffect(() => {
     fetch("https://worldcup.sfg.io/matches")
-      .then(response => response.json())
-      .then(matches => {
+      .then((response) => response.json())
+      .then((matches) => {
         setMatches(matches);
       });
   }, []);
@@ -42,13 +42,18 @@ const GridMain = () => {
       gameNumber,
       dateString,
       stage_name,
-      score: `${match.home_team.goals}-${match.away_team.goals}`
+      score: `${match.home_team.goals}-${match.away_team.goals}`,
     };
   });
 
-  if (filteredMatches && searchText && searchText !== "")
+  if (
+    filteredMatches &&
+    filteredMatches !== "" &&
+    searchText &&
+    searchText !== ""
+  )
     filteredMatches = filteredMatches.filter(
-      match =>
+      (match) =>
         match.gameNumber.toString().includes(searchText) ||
         match.dateString.toLowerCase().includes(searchText.toLowerCase()) ||
         match.stage_name.toLowerCase().includes(searchText.toLowerCase()) ||
