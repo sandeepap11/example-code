@@ -2,17 +2,17 @@ import React from "react";
 
 const GridRow = ({ match }) => {
   return (
-    <div className="grid-row-main">
-      <div className="grid-row-gamenumber">{match.gameNumber}</div>
-      <div className="grid-row-datetime">{match.dateString}</div>
-      <div className="grid-row-stage">{match.stage_name}</div>
-      <div className="grid-row-location">{match.location}</div>
-      <div className="grid-row-venue">{match.venue}</div>
-      <div className="grid-row-home">{match.home_team_country}</div>
-      <div className="grid-row-away">{match.away_team_country}</div>
-      <div className="grid-row-score">{match.score}</div>
-      <div className="grid-row-attendance">{match.attendance}</div>
-    </div>
+    <tr>
+      <td>{match.gameNumber}</td>
+      <td>{match.dateString}</td>
+      <td>{match.stage_name}</td>
+      <td>{match.location}</td>
+      <td>{match.venue}</td>
+      <td>{match.home_team_country}</td>
+      <td>{match.away_team_country}</td>
+      <td>{match.score}</td>
+      <td>{match.attendance}</td>
+    </tr>
   );
 };
 
