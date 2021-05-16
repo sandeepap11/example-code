@@ -4,7 +4,7 @@ import {
   faStepBackward,
   faBackward,
   faForward,
-  faStepForward
+  faStepForward,
 } from "@fortawesome/free-solid-svg-icons";
 
 const RETURN_KEY_CODE = 13;
@@ -18,13 +18,13 @@ const Pagination = ({
   rowsPerPage,
   rowsInCurrentPage,
   totalRows,
-  totalPages
+  totalPages,
 }) => {
   const [currentPageNumber, setNewCurrentPageNumber] = useState(pageNumber);
 
   useEffect(() => setNewCurrentPageNumber(pageNumber), [pageNumber]);
 
-  const updatePageNumber = currentPageNumberValue => {
+  const updatePageNumber = (currentPageNumberValue) => {
     if (
       isNaN(currentPageNumberValue) ||
       Number(currentPageNumberValue) > totalPages ||
@@ -57,9 +57,9 @@ const Pagination = ({
             <input
               type="text"
               className="pagination-page-input"
-              onChange={event => setNewCurrentPageNumber(event.target.value)}
+              onChange={(event) => setNewCurrentPageNumber(event.target.value)}
               onBlur={() => updatePageNumber(currentPageNumber)}
-              onKeyDown={event => {
+              onKeyDown={(event) => {
                 if (event.keyCode === 13) {
                   event.target.blur();
                 }
@@ -97,7 +97,7 @@ const Pagination = ({
 
 const PaginationControl = ({ icon, onClick, isDisabled, label }) => {
   return (
-    <div
+    <button
       className={
         isDisabled
           ? "pagination-page-control-disabled"
@@ -106,18 +106,16 @@ const PaginationControl = ({ icon, onClick, isDisabled, label }) => {
       onClick={() => {
         if (!isDisabled) onClick();
       }}
-      onKeyDown={event =>
+      onKeyDown={(event) =>
         onReturnKeyPress(event, () => {
           if (!isDisabled) onClick();
         })
       }
-      tabIndex={0}
-      role="button"
       aria-disabled={isDisabled}
       aria-label={label}
     >
       <FontAwesomeIcon icon={icon} />
-    </div>
+    </button>
   );
 };
 

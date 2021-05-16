@@ -196,12 +196,10 @@ const SortHandle = ({ parameter, sortHeader, onSort }) => {
   };
 
   return (
-    <div
-      className="grid-geader-sort"
+    <button
+      className="grid-header-sort"
       onClick={changeSortOrder}
       onKeyDown={(event) => onReturnKeyPress(event, changeSortOrder)}
-      tabIndex={0}
-      role="button"
       aria-label={"sort by " + parameter}
     >
       <FontAwesomeIcon
@@ -215,7 +213,7 @@ const SortHandle = ({ parameter, sortHeader, onSort }) => {
             : faSort
         }
       />
-    </div>
+    </button>
   );
 };
 
